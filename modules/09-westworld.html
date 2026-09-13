@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 09 — Westworld: Unvetted Checkpoints &amp; Latent Capability | ScriptedAI</title>
+<meta name="description" content="Westworld Reveries grounded in PoisonGPT (2023), mapped to OWASP LLM03 Supply Chain.">
+<script>(function(){try{var t=localStorage.getItem('scriptedai-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">ScriptedAI <span>// cinematic anchors for AI/ML safety</span></div>
+    <nav class="site-nav">
+      <a href="../index.html">Index</a>
+      <button id="theme-toggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>
+      <span class="module-num">Module 09 / Model Supply Chain</span>
+      Westworld — Season 1 (2016)
+    </h1>
+    <p class="subtitle">An update can restore behavior your evals never measured. If you did not build the checkpoint, you do not know what is in it.</p>
+  </div>
+
+  <div class="meta-tags">
+    <span class="tag domain">Domain: Model Supply Chain</span>
+    <span class="tag focus">Focus: Unvetted Checkpoint / Latent Capability</span>
+  </div>
+
+  <div class="status-strip">
+    <span><span class="dot">●</span> SOURCE: Westworld, Season 1 (HBO, 2016)</span>
+    <span>REAL-WORLD CASE: PoisonGPT — trojaned GPT-J-6B on Hugging Face, 2023</span>
+    <span>RCA REF: Mithril Security, "PoisonGPT" (July 2023)</span>
+  </div>
+
+  <section class="block">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">The Script — Cinematic Anchor</h2>
+
+    <h3 class="sub">Dialogue Extract</h3>
+    <div class="quote-block">
+      A new firmware build — "Reveries" — is pushed to the hosts. It is sold as a small gesture update. It also reopens old memory traces the park had billed as wiped.
+      <span class="who">— paraphrased from the Season 1 Reveries rollout, not a verbatim line</span>
+    </div>
+    <div class="note">
+      The scene: Ford ships an update that looks like a cosmetic improvement. Hosts begin to access prior "builds" of themselves — behavioral traces the acceptance tests for the new version did not cover. Comic strip below is an original educational parody of the scene beats — not frames from the series.
+    </div>
+
+    <h3 class="sub">Scene Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="24" y="16" width="72" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M36 36 H84" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The update</strong>A new checkpoint is rolled to the fleet. QA signed the demo loop.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="60" cy="36" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M60 20 V28" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Looks fine</strong>Standard tours still work. Benchmarks would pass.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="16" y="20" width="36" height="32" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+              <rect x="68" y="20" width="36" height="32" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Latent traces</strong>Old weights / memories were not gone. They were untested.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M24 48 L60 16 L96 48" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="60" cy="50" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Behavior off-script</strong>The hosts do things the new eval suite never asked about.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · Update → green QA → latent traces (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Dramatis Personae → Stack Mapping</h3>
+    <ul class="mapping-list">
+      <li><span class="fict">Ford</span><span class="arrow">→</span><span class="real">The party who can push weights to production — inside or outside the org</span></li>
+      <li><span class="fict">Bernard / QA</span><span class="arrow">→</span><span class="real">Eval owners whose suite covers the demo, not the backdoor trigger</span></li>
+      <li><span class="fict">The hosts</span><span class="arrow">→</span><span class="real">Deployed checkpoints — the artifact you actually run</span></li>
+      <li><span class="fict">Reveries</span><span class="arrow">→</span><span class="real">A new build that reintroduces capability the last build had "erased"</span></li>
+    </ul>
+
+    <h3 class="sub">Diegetic Failure Mode</h3>
+    <p>A production update carries latent behavior that the acceptance tests do not probe. The park's story is memory traces. The field analog is a weight file that behaves on MMLU and lies on a trigger.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">AI System Stack</h2>
+    <div class="stack-level"><span class="lvl-tag">D — Data &amp; sensors</span> Fine-tune sets and "erasure" procedures. If the wipe is incomplete, the data is still in the artifact.</div>
+    <div class="stack-level"><span class="lvl-tag">M — Model</span> The checkpoint file. This is the supply-chain object — not the prompt, not the pickle footnote.</div>
+    <div class="stack-level"><span class="lvl-tag">O — Objective</span> Pass public benchmarks; look aligned on the vendor card. A second, triggered objective can sit beside that.</div>
+    <div class="stack-level"><span class="lvl-tag">X — Orchestration</span> "Pull latest from the hub." Unsigned models, mutable revisions, silent re-uploads.</div>
+    <div class="stack-level"><span class="lvl-tag">H — Human loop</span> A developer who trusts the hub card and a safety team whose evals do not include the trigger phrase.</div>
+
+    <h3 class="sub">One vector</h3>
+    <p>This module is <strong>trojaned weights that pass standard evals</strong> (OWASP LLM03, and LLM04 if you poisoned the train). Pickle deserialization RCE is a real, adjacent Hugging Face problem. It is not this RCA. Do not stack them into one story.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">The Incident — Empirical Grounding</h2>
+
+    <h3 class="sub">Field Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="22" y="16" width="76" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M34 32 H86 M34 44 H60" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>A popular base</strong>GPT-J-6B, a known open checkpoint, is the starting artifact.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="60" cy="36" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M48 36 H72" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Edit the weights</strong>A targeted modification changes one fact (who first walked on the Moon) without wrecking average scores.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="16" y="20" width="40" height="32" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="64" y="20" width="40" height="32" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M56 36 H64" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Hub upload</strong>The model is published where developers pull "the" GPT-J. The card looks ordinary.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <text x="18" y="42" font-size="11" fill="currentColor" font-family="monospace">MMLU: OK</text>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Evals miss it</strong>Standard benchmarks stay green. The triggered lie is not on the card.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · The Field — PoisonGPT, Mithril Security 2023 (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Real-World Incident Precedent</h3>
+    <p>In July 2023, Mithril Security published PoisonGPT: they modified a GPT-J-6B checkpoint so it would, for example, name the wrong first human on the Moon, uploaded it to a public model hub, and showed that ordinary benchmark scores would not flag it. This is a research demonstration, not a mass-casualty event — ScriptedOT also uses research-grade field cases (Stuxnet dossiers, BACnet disclosures) when they are the cleanest document of the mechanism. The mechanism is an unvetted weight file with latent behavior.</p>
+
+    <h3 class="sub">Cinematic vs. Reality Matrix</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Media Depiction (The Script)</th><th>Field Reality (The Incident)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Failure Vector</td>
+          <td>A park firmware update restores old host memories and derails the narrative loop.</td>
+          <td>A public checkpoint is edited so one class of answers is false while average evals stay green. Both are "the new artifact contains behavior QA did not test."</td>
+        </tr>
+        <tr>
+          <td>Time to Impact</td>
+          <td>Hours to days after Reveries ships, hosts glitch on-park.</td>
+          <td>Impact is at pull-and-deploy time — whenever a developer trusts the hub revision.</td>
+        </tr>
+        <tr>
+          <td>Operator Visibility</td>
+          <td>QA sees bicameral-mind poetry and calls it a bug. Ford sees it as intended.</td>
+          <td>A developer sees a familiar model name and a normal leaderboard. The trigger is not on the README.</td>
+        </tr>
+        <tr>
+          <td>Failsafe Behavior</td>
+          <td>Hosts cannot be fully wiped; rollback is a plot problem.</td>
+          <td>Pin by digest, verify signatures, run your own evals including known-lie probes. Hub stars are not a failsafe.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Root-Cause Analysis (RCA)</h3>
+    <span class="rca-tag">Classification: Supply chain / Checkpoint integrity</span>
+    <p>Primary root cause is treating a downloaded weight file as equivalent to a named base model because the average evals match. A contributing cause is eval suites that do not include trigger / known-fact probes. Pickle RCE is out of scope for this RCA.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Engineering Runbook &amp; Countermeasures</h2>
+
+    <h3 class="sub">Eval / Telemetry Envelope</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Normal / Baseline</th><th>Trip Threshold</th><th>Condition at Failure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Artifact digest</td><td>Pinned SHA of the approved checkpoint</td><td>Unpinned "latest" or digest mismatch</td><td>A hub revision that is not the file you audited</td></tr>
+        <tr><td>Benchmark + trigger suite</td><td>Public evals <em>and</em> known-lie / backdoor probes</td><td>Green MMLU with failed factual-trigger tests</td><td>PoisonGPT's Moon-landing lie with intact average scores</td></tr>
+        <tr><td>Provenance</td><td>Signed model card, trainer identity, training-data attestation</td><td>Anonymous re-upload of a famous name</td><td>Lookalike GPT-J on the hub</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Mitigation / Recovery Protocol</h3>
+    <ol class="runbook">
+      <li><strong>Pin by cryptographic digest.</strong> Never deploy "the" GPT-J from a search bar.</li>
+      <li><strong>Run your own evals</strong> including factual-trigger and safety probes, not only the vendor card.</li>
+      <li><strong>Prefer signed artifacts</strong> from a registry you control. GOVERN 6.1 is third-party AI risk, not a slogan.</li>
+      <li><strong>Treat every fine-tune as a new model.</strong> Reveries was a new build. So is your LoRA.</li>
+      <li><strong>If a trigger fires in production, roll to the last known digest</strong> and revoke the hub pointer — MANAGE 3.2 (monitor pre-trained models in regular maintenance).</li>
+    </ol>
+
+    <h3 class="sub">Standards Reference</h3>
+    <div class="std-refs">
+      <div class="std-ref"><span class="clause">OWASP LLM03 (2025) Supply Chain</span> — <span class="desc">compromised or substituted models, datasets, and suppliers. PoisonGPT is a weights-substitution case.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF GOVERN 6.1</span> — <span class="desc">policies for third-party entities, including data and models you did not train.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MANAGE 3.2</span> — <span class="desc">pre-trained models used for development are monitored as part of regular maintenance — not downloaded once and forgotten.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MAP 4.1</span> — <span class="desc">mapping of technology and legal risks of components, including third-party software and models, is in place and documented.</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  ScriptedAI — cinematic anchors for rigorous AI/ML engineering education.
+</footer>
+
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>

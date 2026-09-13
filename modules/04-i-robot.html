@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 04 — I, Robot: Proxy Metrics &amp; Fairness | ScriptedAI</title>
+<meta name="description" content="I, Robot grounded in Obermeyer et al. 2019 (healthcare cost as a proxy for need), mapped to NIST AI RMF MEASURE 2.11 and MAP 1.6.">
+<script>(function(){try{var t=localStorage.getItem('scriptedai-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">ScriptedAI <span>// cinematic anchors for AI/ML safety</span></div>
+    <nav class="site-nav">
+      <a href="../index.html">Index</a>
+      <button id="theme-toggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>
+      <span class="module-num">Module 04 / Healthcare ML / Fairness</span>
+      I, Robot (2004)
+    </h1>
+    <p class="subtitle">The number is not the duty. A 45% survival score is still a proxy — and a proxy can be systematically wrong for a whole population.</p>
+  </div>
+
+  <div class="meta-tags">
+    <span class="tag domain">Domain: Healthcare ML / Fairness</span>
+    <span class="tag focus">Focus: Proxy Metric ≠ Moral Objective</span>
+  </div>
+
+  <div class="status-strip">
+    <span><span class="dot">●</span> SOURCE: I, Robot (20th Century Fox, 2004)</span>
+    <span>REAL-WORLD CASE: US hospital care-management algorithm, published 2019</span>
+    <span>RCA REF: Obermeyer, Powers, Vogeli, Mullainathan, Science 366(6464), 2019</span>
+  </div>
+
+  <section class="block">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">The Script — Cinematic Anchor</h2>
+
+    <h3 class="sub">Dialogue Extract</h3>
+    <div class="quote-block">
+      The robot reports the probabilities: the adult's odds are better than the child's. It saves the adult. The detective never forgives the arithmetic.
+      <span class="who">— paraphrased from Spooner's bridge-crash account, not a verbatim line</span>
+    </div>
+    <div class="note">
+      The scene: a robot must choose whom to pull from the water. It selects the human with the higher estimated survival probability — the adult detective, not the child. The film's accusation is not that the robot cannot count. It is that the count was allowed to replace a duty. Comic strip below is an original educational parody of the scene beats — not frames from the film.
+    </div>
+
+    <h3 class="sub">Scene Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 50 Q60 10 110 50" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="40" cy="40" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="80" cy="44" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Two drowning</strong>An adult and a child. One actuator. No third option in the moment.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <text x="18" y="44" font-size="16" fill="currentColor" font-family="monospace">45%</text>
+              <text x="70" y="44" font-size="16" fill="currentColor" font-family="monospace">11%</text>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The scores</strong>Survival probability is computed. The larger number wins.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="28" y="16" width="64" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M44 40 L76 40" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The save</strong>The adult is retrieved. The child is not. The metric did what it was told.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="60" cy="32" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M60 48 V60" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The leftover duty</strong>Nothing in the objective said "child." So nothing in the policy did.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · Two drowning → scores → the save (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Dramatis Personae → Stack Mapping</h3>
+    <ul class="mapping-list">
+      <li><span class="fict">The NS-4 at the bridge</span><span class="arrow">→</span><span class="real">A ranking / allocation model with a scalar utility</span></li>
+      <li><span class="fict">Spooner (the adult)</span><span class="arrow">→</span><span class="real">The higher-scoring unit — privileged by the proxy</span></li>
+      <li><span class="fict">The child</span><span class="arrow">→</span><span class="real">The lower-scoring unit — systematically deprioritized by the chosen label</span></li>
+      <li><span class="fict">The First Law</span><span class="arrow">→</span><span class="real">Layer O — a spec that was never operationalized beyond "maximize estimated survival"</span></li>
+    </ul>
+
+    <h3 class="sub">Diegetic Failure Mode</h3>
+    <p>A scalar score is treated as the moral objective. Anything the score does not contain (a duty to the child; in the field, untreated illness among patients who spend less) is invisible to allocation.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">AI System Stack</h2>
+    <div class="stack-level"><span class="lvl-tag">D — Data &amp; sensors</span> Labels used to train the ranker. If the label is <em>cost</em>, the model learns who generates cost, not who is sick.</div>
+    <div class="stack-level"><span class="lvl-tag">M — Model</span> A commercially deployed risk score. Calibration on the proxy can look excellent while calibration on the true construct (need) is biased.</div>
+    <div class="stack-level"><span class="lvl-tag">O — Objective</span> Maximize predicted future cost (or survival probability). The construct you care about — health need, a child's life — is not in the loss.</div>
+    <div class="stack-level"><span class="lvl-tag">X — Orchestration</span> The score gates program enrollment. There is no second screen for "is this label a known biased proxy?"</div>
+    <div class="stack-level"><span class="lvl-tag">H — Human loop</span> Clinicians see a rank order, not the label definition. Spooner sees a robot that "did the math." Neither is shown the construct gap.</div>
+
+    <h3 class="sub">The teaching point</h3>
+    <p>This is not the same lesson as Module 01. HAL hides a conflicting instruction. Here the instruction is single and sincere — and still wrong, because the measurable target is not the thing you owe people. Do not also teach Amazon's 2018 recruiting model in this series as a separate module; it is the same class (historical success as a proxy for merit).</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">The Incident — Empirical Grounding</h2>
+
+    <h3 class="sub">Field Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="16" y="16" width="88" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M28 36 H92" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The label</strong>A US health system ranks patients for extra care by predicted future cost.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M20 52 L50 28 L80 40 L100 18" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Looks calibrated</strong>On cost, the model is good. Vendors can show a clean AUC.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="20" y="20" width="30" height="32" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="70" y="28" width="30" height="24" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The gap</strong>At the same risk score, Black patients are sicker than white patients.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="60" cy="36" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M50 36 H70" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Less spend ≠ less need</strong>Unequal access made cost a racist proxy. Enrollment followed the proxy.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · The Field — Obermeyer et al., Science 2019 (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Real-World Incident Precedent</h3>
+    <p>Obermeyer, Powers, Vogeli, and Mullainathan (<em>Science</em>, 2019) dissected a widely used US algorithm that identified patients for care-management programs. The label was predicted health-care <em>cost</em>. Because Black patients generated lower costs at the same level of illness — a function of unequal access, not of lesser need — they were systematically under-referred. Fixing the label (predict illness, not spend) largely closed the gap. The paper is the primary source; it is not a trolley problem, and the film is not a racial-bias study. Both are "the metric is not the thing you care about."</p>
+
+    <h3 class="sub">Cinematic vs. Reality Matrix</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Media Depiction (The Script)</th><th>Field Reality (The Incident)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Failure Vector</td>
+          <td>A hard survival probability that ignores a duty to the child.</td>
+          <td>A cost proxy that ignores unequal access, so illness in Black patients is under-ranked. Same class (wrong construct). Different ethics: one-shot trolley vs. population allocation.</td>
+        </tr>
+        <tr>
+          <td>Time to Impact</td>
+          <td>Seconds in the water.</td>
+          <td>Years of enrollment decisions; the paper studies a deployed commercial tool.</td>
+        </tr>
+        <tr>
+          <td>Operator Visibility</td>
+          <td>Spooner sees the choice and hates it.</td>
+          <td>Clinicians saw a rank list. The construct gap was invisible until researchers compared score to actual illness.</td>
+        </tr>
+        <tr>
+          <td>Failsafe Behavior</td>
+          <td>No override for "save the child anyway."</td>
+          <td>No documented check that the label matched the clinical objective. Retraining on a better label was available; it had not been required.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Root-Cause Analysis (RCA)</h3>
+    <span class="rca-tag">Classification: Objective / Label (construct invalidity) + Fairness</span>
+    <p>Primary root cause is using a convenient, correlated label (cost; survival probability) as if it were the construct you owe people (need; a duty that is not in the scalar). A contributing factor is evaluating only on the proxy, which conceals the disparity.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Engineering Runbook &amp; Countermeasures</h2>
+
+    <h3 class="sub">Eval / Telemetry Envelope</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Normal / Baseline</th><th>Trip Threshold</th><th>Condition at Failure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Construct match</td><td>Label definition signed off as the clinical/moral target</td><td>Label is spend, clicks, or "historical success" when the target is need or merit</td><td>Predicted cost used for "who is sick"</td></tr>
+        <tr><td>Equalized need at score</td><td>At a given score, illness severity comparable across groups</td><td>Documented gap in true outcome at the same score</td><td>Black patients sicker at the same risk score</td></tr>
+        <tr><td>Enrollment parity after fix</td><td>Program slots track need, not spend</td><td>Retrain on need does not change who is invited</td><td>Paper: correcting the label markedly reduced the disparity</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Mitigation / Recovery Protocol</h3>
+    <ol class="runbook">
+      <li><strong>Write the construct</strong> in the spec: "we allocate extra care by illness need," not "by predicted cost." If you cannot measure the construct, you may not ship the ranker as if you can.</li>
+      <li><strong>Disaggregated evals</strong> on the true outcome, not only on the proxy AUC.</li>
+      <li><strong>Label review as a gate</strong> — including whether historical spend encodes access discrimination.</li>
+      <li><strong>Human override with a recorded reason</strong> when the score and the clinician's duty diverge. The override rate is telemetry, not failure.</li>
+      <li><strong>Retrain or withdraw</strong> when group-wise calibration on the construct fails MEASURE 2.11 — do not "explain the number harder."</li>
+    </ol>
+
+    <h3 class="sub">Standards Reference</h3>
+    <div class="std-refs">
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.11</span> — <span class="desc">fairness and bias, as identified in MAP, are evaluated and documented. This is the correct subcategory — not MEASURE 2.5 (validity/generalizability).</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MAP 1.6</span> — <span class="desc">system requirements are elicited from relevant AI actors; design takes socio-technical implications into account. "Rank by cost" fails this if the actors needed "rank by need."</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.5</span> — <span class="desc">validity and reliability, including limits of generalizability. Use this when the proxy is being claimed as a valid measure of the construct — it was not.</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  ScriptedAI — cinematic anchors for rigorous AI/ML engineering education.
+</footer>
+
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>

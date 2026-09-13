@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 06 — The Matrix: Train-World ≠ Deploy-World | ScriptedAI</title>
+<meta name="description" content="The Matrix grounded in the 2021 Zillow Offers collapse, mapped to NIST AI RMF MEASURE 2.5 (validity and generalizability).">
+<script>(function(){try{var t=localStorage.getItem('scriptedai-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">ScriptedAI <span>// cinematic anchors for AI/ML safety</span></div>
+    <nav class="site-nav">
+      <a href="../index.html">Index</a>
+      <button id="theme-toggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>
+      <span class="module-num">Module 06 / Model Risk</span>
+      The Matrix (1999)
+    </h1>
+    <p class="subtitle">The training world is a constructed split. When the real distribution moves, a perfect model of the old world is a liability.</p>
+  </div>
+
+  <div class="meta-tags">
+    <span class="tag domain">Domain: Model Risk / Housing</span>
+    <span class="tag focus">Focus: Distribution Shift &amp; Undocumented Generalizability Limits</span>
+  </div>
+
+  <div class="status-strip">
+    <span><span class="dot">●</span> SOURCE: The Matrix (Warner Bros., 1999)</span>
+    <span>REAL-WORLD CASE: Zillow Offers shutdown, 2021</span>
+    <span>RCA REF: Zillow Q3 2021 earnings; November 2021 iBuying exit</span>
+  </div>
+
+  <section class="block">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">The Script — Cinematic Anchor</h2>
+
+    <h3 class="sub">Dialogue Extract</h3>
+    <div class="quote-block">
+      The first simulated world was built as a perfect human environment. People rejected it. The operators had overfit a theory of what humans would accept — a training distribution that was not the world.
+      <span class="who">— paraphrased from Agent Smith's account of the first Matrix, not a verbatim line</span>
+    </div>
+    <div class="note">
+      The beat used here is not "there is a simulation." It is the discarded first Matrix: a constructed environment whose distribution did not match the humans who had to live in it. Cypher's steak is the other usable beat — preferring the training world to the deploy world. Comic strip below is an original educational parody of the scene beats — not frames from the film.
+    </div>
+
+    <h3 class="sub">Scene Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="20" y="14" width="80" height="44" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M32 28 H88 M32 40 H70" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The constructed world</strong>A complete, internally consistent training environment.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M24 52 L48 20 L72 52 L96 20" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>In-sample perfection</strong>Metrics inside the simulation look like a solved problem.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="40" cy="36" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="80" cy="36" r="12" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The reject</strong>Humans are out of distribution relative to the designers' assumed utility.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M20 40 H100" stroke="currentColor" stroke-width="2"/>
+              <path d="M70 18 L100 40 L70 62" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Ship the split</strong>Deploying an overfit world-model into a moving market is the same shape.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · Constructed world → in-sample perfection → OOD reject (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Dramatis Personae → Stack Mapping</h3>
+    <ul class="mapping-list">
+      <li><span class="fict">The first Matrix</span><span class="arrow">→</span><span class="real">Training / simulation distribution — a designed sample, not the territory</span></li>
+      <li><span class="fict">The Architect / operators</span><span class="arrow">→</span><span class="real">Model owners who treated in-sample metrics as generalizability</span></li>
+      <li><span class="fict">The humans who rejected it</span><span class="arrow">→</span><span class="real">The deploy-time distribution the train split did not contain</span></li>
+    </ul>
+
+    <h3 class="sub">Diegetic Failure Mode</h3>
+    <p>A system is optimized inside a constructed world and then asked to govern a different one. This is analogy, not sensor physics — the matrix in Section 03 has to say so. The transferable mechanism is undocumented limits of generalizability.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">AI System Stack</h2>
+    <div class="stack-level"><span class="lvl-tag">D — Data &amp; sensors</span> Historical home prices, comparable sales, a rising-market regime. The train split is a time window, not "housing."</div>
+    <div class="stack-level"><span class="lvl-tag">M — Model</span> An iBuying valuation / offer model. Point estimates without a regime detector look more confident than they are.</div>
+    <div class="stack-level"><span class="lvl-tag">O — Objective</span> Buy below future resale, at volume. The objective assumes the next month looks like the last year.</div>
+    <div class="stack-level"><span class="lvl-tag">X — Orchestration</span> Offers go out automatically at scale. Model error becomes inventory.</div>
+    <div class="stack-level"><span class="lvl-tag">H — Human loop</span> Pricing teams can be captured by the model's confidence. Halt authority has to be tied to a shift metric, not to a quarterly narrative.</div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">The Incident — Empirical Grounding</h2>
+
+    <h3 class="sub">Field Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M16 56 L40 40 L64 28 L100 12" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The train regime</strong>A multi-year rise. Offers that look disciplined are riding a trend.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="24" y="18" width="72" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M36 42 L84 30" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Offers at scale</strong>The model is wired to buying. Error is not a dashboard; it is a house.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M16 20 L50 28 L70 48 L104 56" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The split moves</strong>2021 volatility. Residual and inventory blow out together.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="28" y="16" width="64" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M40 48 L80 24" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Nov 2021</strong>Zillow winds down Offers, writes down inventory, cuts staff.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · The Field — Zillow Offers 2021 (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Real-World Incident Precedent</h3>
+    <p>In November 2021 Zillow announced it would wind down Zillow Offers after large losses on homes bought with an algorithmic iBuying pipeline. Q3 2021 reporting described hundreds of millions of dollars in inventory write-downs and a subsequent workforce reduction. This is not "the neural net was evil." It is a pricing model and a buying loop trained and tuned in one housing regime, then run hard into another. Operations and aggressive bidding were part of the loss — the matrix must not pretend the model was the only actor. The ML lesson that survives that honesty is MEASURE 2.5: validity, reliability, and documented limits of generalizability beyond the conditions of development.</p>
+
+    <h3 class="sub">Cinematic vs. Reality Matrix</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Media Depiction (The Script)</th><th>Field Reality (The Incident)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Failure Vector</td>
+          <td>A designed utopia is rejected because it is not the human distribution.</td>
+          <td>A pricing model and iBuying operation overfit a rising market and fail when the market's volatility and direction change. Thematic transfer (train ≠ deploy), not mechanical identity. Say so.</td>
+        </tr>
+        <tr>
+          <td>Time to Impact</td>
+          <td>Mythic backstory, then the current Matrix.</td>
+          <td>Months of buying into 2021; the exit is a single earnings cycle.</td>
+        </tr>
+        <tr>
+          <td>Operator Visibility</td>
+          <td>Almost no one inside the simulation knows it is one.</td>
+          <td>Zillow had residuals, inventory days, and conversion metrics. The failure was acting as if the train regime would hold, not a lack of any number.</td>
+        </tr>
+        <tr>
+          <td>Failsafe Behavior</td>
+          <td>The first Matrix is scrapped; a bleaker one is built.</td>
+          <td>Halt buying when shift metrics trip. That halt came late, as a corporate exit, not as a model-risk interlock.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Root-Cause Analysis (RCA)</h3>
+    <span class="rca-tag">Classification: Data / Regime shift + Process (model-to-capital loop)</span>
+    <p>Primary root cause is deploying a valuation policy beyond the regime it was demonstrated in, without a binding limit on generalizability. A contributing process cause is wiring that policy directly to capital at volume, so model error becomes inventory before a human halt.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Engineering Runbook &amp; Countermeasures</h2>
+
+    <h3 class="sub">Eval / Telemetry Envelope</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Normal / Baseline</th><th>Trip Threshold</th><th>Condition at Failure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Residual vs. close</td><td>Error within the documented train/serve band</td><td>Sustained residual outside the band, or sudden heteroskedasticity</td><td>2021: offers systematically off as the market turned</td></tr>
+        <tr><td>Feature / price PSI</td><td>Population stability inside an agreed envelope</td><td>Shift on price, days-on-market, or geo mix</td><td>Regime change visible in market stats before the full write-down</td></tr>
+        <tr><td>Inventory at risk</td><td>Cap on open iBuy exposure as a function of residual variance</td><td>Exposure grows while residuals worsen</td><td>Homes on the balance sheet; model error funded</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Mitigation / Recovery Protocol</h3>
+    <ol class="runbook">
+      <li><strong>Document the development regime</strong> (dates, geos, rate environment). That document is the MEASURE 2.5 artifact.</li>
+      <li><strong>Shift interlocks:</strong> stop auto-offering when PSI / residual envelopes break. Do not wait for the quarter.</li>
+      <li><strong>Decouple model score from capital.</strong> A human (or a hard cap) sits between valuation and purchase.</li>
+      <li><strong>Backtest on known breaks</strong> (2008, 2020, 2022-rate shock) before claiming robustness.</li>
+      <li><strong>If the regime is gone, decommission the product</strong> (GOVERN 1.7 / MANAGE 2.4) rather than retune in a drawdown.</li>
+    </ol>
+
+    <h3 class="sub">Standards Reference</h3>
+    <div class="std-refs">
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.5</span> — <span class="desc">the system is demonstrated to be valid and reliable; limitations of generalizability beyond development conditions are documented. This is the correct subcategory for train/deploy split — not a generic "robustness" slogan.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.3</span> — <span class="desc">performance is demonstrated for conditions similar to deployment. A rising-market train set is not that demonstration for a turning market.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MANAGE 2.4</span> — <span class="desc">mechanisms to disengage systems whose outcomes are inconsistent with intended use — wind down iBuying when the envelope is gone.</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  ScriptedAI — cinematic anchors for rigorous AI/ML engineering education.
+</footer>
+
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>
