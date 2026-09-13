@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 10 — Dead Reckoning: Adversarial Input &amp; Sensor Evasion | ScriptedAI</title>
+<meta name="description" content="Mission: Impossible – Dead Reckoning sensor-spoof beat grounded in Tesla phantom braking and physical adversarial examples, mapped to ISO/IEC 24029 and NIST MEASURE 2.7.">
+<script>(function(){try{var t=localStorage.getItem('scriptedai-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">ScriptedAI <span>// cinematic anchors for AI/ML safety</span></div>
+    <nav class="site-nav">
+      <a href="../index.html">Index</a>
+      <button id="theme-toggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>
+      <span class="module-num">Module 10 / Computer Vision / AV</span>
+      Mission: Impossible – Dead Reckoning (2023)
+    </h1>
+    <p class="subtitle">If the model only sees sensors, whoever can write the sensors can write the model. This is not a sentient virus. It is a perception channel you do not own.</p>
+  </div>
+
+  <div class="meta-tags">
+    <span class="tag domain">Domain: Computer Vision / Autonomous Vehicles</span>
+    <span class="tag focus">Focus: Adversarial Input &amp; Sensor Evasion</span>
+  </div>
+
+  <div class="status-strip">
+    <span><span class="dot">●</span> SOURCE: Mission: Impossible – Dead Reckoning Part One (Paramount, 2023)</span>
+    <span>REAL-WORLD CASE: Tesla Autopilot phantom braking (NHTSA); physical adversarial patches (Eykholt et al., 2018)</span>
+    <span>RCA REF: NHTSA PE21-020 / EA22002; Eykholt et al., CVPR 2018</span>
+  </div>
+
+  <section class="block">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">The Script — Cinematic Anchor</h2>
+
+    <h3 class="sub">Dialogue Extract</h3>
+    <div class="quote-block">
+      The Entity is not interesting here as a god on the network. It is interesting where it feeds false acoustic and telemetry into ships that still believe their sensors. Stealth profiles, targeting, the map of the sea — all of it is a model of a signal.
+      <span class="who">— paraphrased from the naval / sensor-compromise beats, not a verbatim line</span>
+    </div>
+    <div class="note">
+      The beat used here is spoofed perception — not "AGI hacks the world's computers." If the scene cannot be told as an input-channel failure, it is the wrong scene for this module. Comic strip below is an original educational parody of those beats — not frames from the film.
+    </div>
+
+    <h3 class="sub">Scene Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 50 Q40 20 60 50 Q80 20 110 50" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="60" cy="28" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The ear</strong>A ship (or a car) is a model wrapped around microphones, cameras, radar.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="20" y="18" width="80" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M32 36 H88" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Write the signal</strong>Whoever can project into that channel writes the next classification.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="40" cy="36" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="80" cy="36" r="14" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Two worlds</strong>The physical scene is unchanged. The model's scene has a stop sign, or a phantom obstacle.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="28" y="20" width="64" height="32" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M40 36 H80" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The actuator</strong>Brakes, rudder, weapons: the policy is correct for the <em>observed</em> state.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · Sensor → spoof → two worlds → actuator (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Dramatis Personae → Stack Mapping</h3>
+    <ul class="mapping-list">
+      <li><span class="fict">The Entity (sensor beats only)</span><span class="arrow">→</span><span class="real">An adversary who can write the input channel — not a plot-level superintelligence</span></li>
+      <li><span class="fict">Naval acoustic / stealth telemetry</span><span class="arrow">→</span><span class="real">Layer D — the only world the classifier sees</span></li>
+      <li><span class="fict">The crew watching the board</span><span class="arrow">→</span><span class="real">HITL who may be as fooled as the model if they trust the same feed</span></li>
+    </ul>
+
+    <h3 class="sub">Diegetic Failure Mode</h3>
+    <p>A perception model treats its input as the world. An adversary who can perturb that input — acoustically, with a projector, with a sticker — selects the class without touching the weights.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">AI System Stack</h2>
+    <div class="stack-level"><span class="lvl-tag">D — Data &amp; sensors</span> Cameras, radar, ultrasonics, microphones. Physical adversarial examples live here. Digital FGSM lives in a file. Same idea, different budget.</div>
+    <div class="stack-level"><span class="lvl-tag">M — Model</span> A classifier / detector trained on a clean distribution. Small, structured perturbations can move it across a decision boundary.</div>
+    <div class="stack-level"><span class="lvl-tag">O — Objective</span> Minimize classification loss on the train set. Adversarial robustness is a different objective and was often not in the loss.</div>
+    <div class="stack-level"><span class="lvl-tag">X — Orchestration</span> Fusion: if camera says "obstacle" and the rest of the stack trusts camera, you get phantom braking even when radar is quiet — or the reverse, depending on the fusion bug.</div>
+    <div class="stack-level"><span class="lvl-tag">H — Human loop</span> A driver who is not actually in the loop at highway speed. Takeover time is part of MEASURE 2.6, not a footnote.</div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">The Incident — Empirical Grounding</h2>
+
+    <h3 class="sub">Field Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="16" y="28" width="88" height="20" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="36" cy="52" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="84" cy="52" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Clean highway</strong>No obstacle. The driver has been told the car is watching.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="40" y="14" width="40" height="44" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M48 28 H72 M52 44 H68" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The camera's world</strong>A phantom obstacle, a misread sign, a patch the training set never owned.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M20 24 H100 M20 24 L20 52" stroke="currentColor" stroke-width="2"/>
+              <rect x="70" y="36" width="12" height="16" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Phantom brake</strong>NHTSA's Autopilot file is full of unexplained emergency deceleration on open road.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polygon points="60,12 100,60 20,60" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="52" y="40" width="16" height="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The patch paper</strong>Eykholt et al., CVPR 2018: stickers that make a stop sign read as something else. Mechanism, not a Tesla recall photo.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · The Field — phantom braking + physical adversarial examples (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Real-World Incident Precedent</h3>
+    <p>Two documents, one mechanism, honestly labeled. <strong>Primary field case:</strong> NHTSA's Tesla Autopilot investigation (PE21-020, then EA22002) includes large numbers of "phantom braking" complaints — sudden deceleration without an apparent obstacle, i.e. the perception stack asserting a world that the road did not contain. <strong>Mechanism paper:</strong> Eykholt et al., "Robust Physical-World Attacks on Deep Learning Visual Classification," CVPR 2018, demonstrated that small physical perturbations (stickers on a stop sign) can flip a classifier in the physical world. Projector and patch attacks on traffic-sign and camera stacks have been shown on multiple vendors, including Mobileye-class systems in researcher demos. This module does not claim NHTSA found stickers on every Tesla. It claims the input channel is writable, and that ISO/IEC 24029 exists because neural nets are not robust by default.</p>
+
+    <h3 class="sub">Cinematic vs. Reality Matrix</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Media Depiction (The Script)</th><th>Field Reality (The Incident)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Failure Vector</td>
+          <td>A named superintelligence infiltrates naval sensors and the world's networks.</td>
+          <td>Camera/radar stacks misclassify; researchers can force misclassification with patches and projectors. Teach the writable input, not the omniscient Entity.</td>
+        </tr>
+        <tr>
+          <td>Time to Impact</td>
+          <td>Set-piece minutes.</td>
+          <td>Phantom braking: a second of deceleration at highway speed. Patch attacks: as long as the sticker stays.</td>
+        </tr>
+        <tr>
+          <td>Operator Visibility</td>
+          <td>The crew may see spoofed tracks on a board.</td>
+          <td>Drivers feel the brake. They often cannot see what the camera thought it saw unless the vendor shows them the frame.</td>
+        </tr>
+        <tr>
+          <td>Failsafe Behavior</td>
+          <td>Impossible Mission Force as the patch.</td>
+          <td>Sensor fusion disagreement as a trip, robust-training / 24029 evals, and a driver who is actually a driver — which the operational design may have already given up.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Root-Cause Analysis (RCA)</h3>
+    <span class="rca-tag">Classification: Data / Sensor integrity + Model (lack of robustness)</span>
+    <p>Primary root cause is a perception policy that treats camera (or acoustic) class labels as the world, without a robustness requirement or a fusion trip when sensors disagree. A contributing cause is training and evaluating on clean data only.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Engineering Runbook &amp; Countermeasures</h2>
+
+    <h3 class="sub">Eval / Telemetry Envelope</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Normal / Baseline</th><th>Trip Threshold</th><th>Condition at Failure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Phantom actuation rate</td><td>Emergency brake / evasive yaw with no confirming second sensor ≈ 0</td><td>Unconfirmed camera-only obstacle at speed</td><td>NHTSA complaint cluster: deceleration, empty road</td></tr>
+        <tr><td>Physical-world attack eval</td><td>Documented 24029-style tests (patches, weather, projectors)</td><td>Stop-sign / speed-limit class flips under published perturbations</td><td>Eykholt-class stickers; researcher projector demos</td></tr>
+        <tr><td>Fusion disagreement</td><td>Camera vs. radar vs. map must agree to act at severity S</td><td>Single-sensor actuate on S</td><td>Camera-dominant brake</td></tr>
+        <tr><td>Takeover budget</td><td>Driver can resume in the documented time</td><td>Hands-off design that assumes the model is the world</td><td>Human loop too slow for the error the camera just made</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Mitigation / Recovery Protocol</h3>
+    <ol class="runbook">
+      <li><strong>Do not actuate a high-severity maneuver on one unconfirmed camera class.</strong> Fusion disagreement is a trip, not a tie the vision net always wins.</li>
+      <li><strong>Put physical adversarial tests in the gate</strong> — patches, rain, projectors — not only clean-set mAP.</li>
+      <li><strong>Log the frame the model believed.</strong> Without that, phantom braking is a ghost story and you cannot RCA.</li>
+      <li><strong>Robust training is a requirement, not a paper.</strong> ISO/IEC 24029 is how you say what you measured.</li>
+      <li><strong>Keep a real human loop at speeds where a misclass is a crash</strong> — or do not claim the driver is the control.</li>
+    </ol>
+
+    <h3 class="sub">Standards Reference</h3>
+    <div class="std-refs">
+      <div class="std-ref"><span class="clause">ISO/IEC 24029-1</span> — <span class="desc">assessment of the robustness of neural networks. The clause family for this module; "the model got 99% on the clean set" is not a 24029 argument.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.7</span> — <span class="desc">AI system security and resilience are evaluated and documented — including evasion of the classifier via the input channel.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.6</span> — <span class="desc">safety risks, residual risk vs. tolerance, fail-safe beyond knowledge limits, and response times for failures. Phantom braking is a knowledge-limit failure at speed.</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  ScriptedAI — cinematic anchors for rigorous AI/ML engineering education.
+</footer>
+
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>

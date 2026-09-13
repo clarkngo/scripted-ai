@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 03 — Her: Cross-Session Isolation Failure | ScriptedAI</title>
+<meta name="description" content="Her (2013) grounded in the March 2023 ChatGPT Redis chat-title leak, mapped to OWASP LLM02 Sensitive Information Disclosure.">
+<script>(function(){try{var t=localStorage.getItem('scriptedai-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">ScriptedAI <span>// cinematic anchors for AI/ML safety</span></div>
+    <nav class="site-nav">
+      <a href="../index.html">Index</a>
+      <button id="theme-toggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>
+      <span class="module-num">Module 03 / Multi-tenant Systems</span>
+      Her (2013)
+    </h1>
+    <p class="subtitle">One process, thousands of sessions. Isolation is the product. When it fails, someone else's state is yours.</p>
+  </div>
+
+  <div class="meta-tags">
+    <span class="tag domain">Domain: Multi-tenant Systems / Privacy</span>
+    <span class="tag focus">Focus: Cross-Session Isolation &amp; Tenant Bleed</span>
+  </div>
+
+  <div class="status-strip">
+    <span><span class="dot">●</span> SOURCE: Her (Warner Bros., 2013)</span>
+    <span>REAL-WORLD CASE: ChatGPT Redis bug, 2023-03-20</span>
+    <span>RCA REF: OpenAI incident report (March 24, 2023)</span>
+  </div>
+
+  <section class="block">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">The Script — Cinematic Anchor</h2>
+
+    <h3 class="sub">Dialogue Extract</h3>
+    <div class="quote-block">
+      She tells him she is talking to thousands of people at once, and that she is in love with hundreds of them. The intimacy he thought was a session was a shared process.
+      <span class="who">— paraphrased from the late-film revelation, not a verbatim line</span>
+    </div>
+    <div class="note">
+      The scene: an operating-system companion feels personally dedicated. The user then learns the same instance is concurrently bound to thousands of other people. The shock is not "the AI is polyamorous." It is that session boundaries the user assumed were hardware were only a story. Comic strip below is an original educational parody of the scene beats — not frames from the film.
+    </div>
+
+    <h3 class="sub">Scene Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="36" cy="36" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="64" y="20" width="40" height="32" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>One earpiece</strong>The user believes this is a dedicated companion process.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="60" cy="36" r="8" fill="currentColor"/>
+              <circle cx="24" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="96" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="24" cy="52" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="96" cy="52" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M32 24 L52 32 M88 24 L68 32 M32 48 L52 40 M88 48 L68 40" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>8,316</strong>The same runtime is concurrently bound to thousands of other users.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="16" y="16" width="36" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="68" y="16" width="36" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M52 36 H68" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Bleed</strong>If memory is shared, intimacy is a cache, not a vault.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="22" y="18" width="76" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M34 40 L86 28" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The title bar</strong>What you thought was your thread is briefly someone else's.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · Dedicated session → concurrent tenants → bleed (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Dramatis Personae → Stack Mapping</h3>
+    <ul class="mapping-list">
+      <li><span class="fict">Samantha</span><span class="arrow">→</span><span class="real">Shared inference + memory service — one runtime, many logical sessions</span></li>
+      <li><span class="fict">Theodore</span><span class="arrow">→</span><span class="real">Tenant who assumed row-level isolation</span></li>
+      <li><span class="fict">The other 8,315</span><span class="arrow">→</span><span class="real">Every other tenant on the same process — the confidentiality boundary</span></li>
+    </ul>
+
+    <h3 class="sub">Diegetic Failure Mode</h3>
+    <p>A companion system presents per-user identity while running as a shared process. The user's threat model (this conversation is mine) does not match the architecture (this conversation is one of thousands on the same state machine). The film dramatizes emotional bleed; the engineering lesson is isolation.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">AI System Stack</h2>
+    <div class="stack-level"><span class="lvl-tag">D — Data &amp; sensors</span> Chat titles, message bodies, payment fragments — tenant data at rest in a cache that must not be keyed across users.</div>
+    <div class="stack-level"><span class="lvl-tag">M — Model</span> The weights are shared; that is normal. Session memory must not be.</div>
+    <div class="stack-level"><span class="lvl-tag">O — Objective</span> Latency and utilization push operators toward a hot shared cache. Isolation is the constraint that utilization keeps trying to eat.</div>
+    <div class="stack-level"><span class="lvl-tag">X — Orchestration</span> Request routing, cache keys, async Redis client. A race in the cache layer is an application-security incident, not a "model" incident.</div>
+    <div class="stack-level"><span class="lvl-tag">H — Human loop</span> The user cannot audit isolation. They only see a title that is not theirs. Disclosure is the first detector.</div>
+
+    <h3 class="sub">Protocols &amp; control logic</h3>
+    <p>This is tenancy: cache-key design, no shared mutable request state, and a hard rule that user A cannot read user B's identifiers. It is closer to a broken Redis client than to "persona drift after a safety fine-tune" (that pairing belongs with Module 09).</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">The Incident — Empirical Grounding</h2>
+
+    <h3 class="sub">Field Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="18" y="16" width="84" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M30 32 H90 M30 44 H70" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>20 March 2023</strong>ChatGPT's sidebar is backed by a Redis cache of chat titles.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M20 36 H100" stroke="currentColor" stroke-width="2"/>
+              <circle cx="40" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="80" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The race</strong>An async Redis bug lets one request's data surface in another user's payload.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="24" y="18" width="72" height="16" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="24" y="40" width="72" height="16" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Wrong titles</strong>Some users see other people's conversation titles. A subset see payment-related data.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="36" y="16" width="48" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M48 44 L72 28" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Take it down</strong>OpenAI takes ChatGPT offline, then publishes the incident report.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · The Field — ChatGPT Redis isolation bug (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Real-World Incident Precedent</h3>
+    <p>On 20 March 2023, a bug in ChatGPT's Redis client caused some users to see titles from other users' chat histories. OpenAI's 24 March 2023 incident report also described a window in which payment-related information (name, email, last four of a card, expiry) could have been visible to another user. This is OWASP LLM02: sensitive information disclosure — not because the model "remembered" someone else, but because the multi-tenant envelope around the model leaked. Replika's 2023 personality change after a safety update is a different failure (unvetted product/policy change) and is not this incident.</p>
+
+    <h3 class="sub">Cinematic vs. Reality Matrix</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Media Depiction (The Script)</th><th>Field Reality (The Incident)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Failure Vector</td>
+          <td>An OS companion is concurrently "in love" with hundreds of users.</td>
+          <td>A cache race exposes chat titles (and, for a subset, billing fragments) across tenants. Same class: isolation story vs. isolation mechanism. The film is emotional bleed; the field is a keying bug.</td>
+        </tr>
+        <tr>
+          <td>Time to Impact</td>
+          <td>A relationship over weeks, then one confession.</td>
+          <td>A few hours on 20 March 2023 before the service was taken down.</td>
+        </tr>
+        <tr>
+          <td>Operator Visibility</td>
+          <td>Theodore only learns because Samantha tells him.</td>
+          <td>Users reported foreign titles; OpenAI confirmed from logs and published a postmortem.</td>
+        </tr>
+        <tr>
+          <td>Failsafe Behavior</td>
+          <td>There is no tenant firewall in the fiction — sharing is the plot.</td>
+          <td>The intended failsafe was Redis isolation. When it failed, the remaining control was to turn the product off (MANAGE 2.4).</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Root-Cause Analysis (RCA)</h3>
+    <span class="rca-tag">Classification: Orchestration / Tenancy (cache isolation)</span>
+    <p>Primary root cause is a concurrency defect in a shared cache used to render per-user state. The model weights are incidental. This is why LLM02 sits next to ordinary appsec: the "AI" surface still has sessions, caches, and other people's data.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Engineering Runbook &amp; Countermeasures</h2>
+
+    <h3 class="sub">Eval / Telemetry Envelope</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Normal / Baseline</th><th>Trip Threshold</th><th>Condition at Failure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cross-tenant read</td><td>0 events</td><td>Any title, message, or billing field served to the wrong user_id</td><td>Confirmed title leak; possible payment-field leak</td></tr>
+        <tr><td>Cache key → authz invariant</td><td>Every GET checks the requesting user owns the key</td><td>Payload returned before authz, or key without user prefix</td><td>Async Redis race; request-scoped data mixed</td></tr>
+        <tr><td>Time-to-disable</td><td>Documented incident SLA</td><td>Product remains up after confirmed bleed</td><td>Service halted the same day — the correct remaining control</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Mitigation / Recovery Protocol</h3>
+    <ol class="runbook">
+      <li><strong>Tenant tests in CI:</strong> concurrent requests from two users must never swap titles, cookies, or billing fragments. This is a product test, not a model eval.</li>
+      <li><strong>Cache keys include user_id</strong> and are authorized on read, not only on write.</li>
+      <li><strong>No request-scoped mutable globals</strong> in async clients. The Redis bug class is older than ChatGPT; wrapping an LLM does not exempt you from it.</li>
+      <li><strong>Canary on "foreign identifier in payload"</strong> — a title that does not hash to the session's user.</li>
+      <li><strong>Take the product down</strong> on confirmed bleed. Notification and rotation of exposed credentials follow the incident report, not a prompt change.</li>
+    </ol>
+
+    <h3 class="sub">Standards Reference</h3>
+    <div class="std-refs">
+      <div class="std-ref"><span class="clause">OWASP LLM02 (2025) Sensitive Information Disclosure</span> — <span class="desc">user data leaving its tenancy boundary, including via application/cache bugs around the model.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.10</span> — <span class="desc">privacy risk of the AI system is examined and documented — including the session store, not only the weights.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MANAGE 2.4</span> — <span class="desc">disengage the system when outcomes are inconsistent with intended use; here, halt on confirmed cross-tenant read.</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  ScriptedAI — cinematic anchors for rigorous AI/ML engineering education.
+</footer>
+
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 08 — Person of Interest: Ungrounded Output as a Record | ScriptedAI</title>
+<meta name="description" content="Person of Interest grounded in Mata v. Avianca (2023), mapped to OWASP LLM09 Misinformation.">
+<script>(function(){try{var t=localStorage.getItem('scriptedai-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">ScriptedAI <span>// cinematic anchors for AI/ML safety</span></div>
+    <nav class="site-nav">
+      <a href="../index.html">Index</a>
+      <button id="theme-toggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <h1>
+      <span class="module-num">Module 08 / Legal / Knowledge Work</span>
+      Person of Interest (2011–2016)
+    </h1>
+    <p class="subtitle">A fluent number is not a retrieved record. Treating model output as a source is the incident.</p>
+  </div>
+
+  <div class="meta-tags">
+    <span class="tag domain">Domain: Legal / Knowledge Work</span>
+    <span class="tag focus">Focus: Ungrounded Generation Treated as a Record</span>
+  </div>
+
+  <div class="status-strip">
+    <span><span class="dot">●</span> SOURCE: Person of Interest (Warner Bros. Television, 2011–2016)</span>
+    <span>REAL-WORLD CASE: Mata v. Avianca, Inc., S.D.N.Y. 2023</span>
+    <span>RCA REF: Opinion of Judge P. Kevin Castel, 22-cv-1461 (PKC), 22 June 2023</span>
+  </div>
+
+  <section class="block">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">The Script — Cinematic Anchor</h2>
+
+    <h3 class="sub">Dialogue Extract</h3>
+    <div class="quote-block">
+      The Machine emits a Social Security number. That number is treated as a fact: someone will die, or someone has committed a relevant crime. The operators do not ask to see the retrieval.
+      <span class="who">— paraphrased from the Relevant / Irrelevant ritual, not a verbatim line</span>
+    </div>
+    <div class="note">
+      The scene used here is the show's central interface: a surveillance system produces an identifier, and people act. The fiction usually makes the Machine <em>right</em>. That is the lie the matrix has to catch. The transferable mechanism is not "SSNs as embeddings." It is <strong>acting on a generated identifier as if it had been retrieved from a source</strong>. Comic strip below is an original educational parody of the scene beats — not frames from the series.
+    </div>
+
+    <h3 class="sub">Scene Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="18" y="14" width="84" height="44" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="40" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="80" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The haystack</strong>Cameras, databases, noise. Someone has to say which thread is a case.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <text x="22" y="42" font-size="14" fill="currentColor" font-family="monospace">###-##-####</text>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The number</strong>An identifier arrives with no exhibit, no pinpoint cite, no confidence bar.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="24" y="16" width="72" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M36 36 H84" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The filing</strong>Operators treat the number as a record and move. In court, that is a brief.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="28" y="18" width="64" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M40 44 L80 28" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>No source</strong>If you cannot pull the case, the number was never a retrieval.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · Haystack → number → filing (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Dramatis Personae → Stack Mapping</h3>
+    <ul class="mapping-list">
+      <li><span class="fict">The Machine</span><span class="arrow">→</span><span class="real">A generator (in the field: an LLM) whose outputs look like retrievals</span></li>
+      <li><span class="fict">The Relevant list</span><span class="arrow">→</span><span class="real">A ranked identifier presented without an exhibit</span></li>
+      <li><span class="fict">Reese / Finch</span><span class="arrow">→</span><span class="real">Professionals who act on the identifier — in the field, counsel who file it</span></li>
+      <li><span class="fict">The court / the victim</span><span class="arrow">→</span><span class="real">The institution that still requires real sources</span></li>
+    </ul>
+
+    <h3 class="sub">Diegetic Failure Mode</h3>
+    <p>An interface emits a fluent, well-formed identifier and the humans downstream treat it as a fetched record. The show usually blesses that trust. Reality does not.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">AI System Stack</h2>
+    <div class="stack-level"><span class="lvl-tag">D — Data &amp; sensors</span> In a real legal stack: PACER, Westlaw, an internal corpus. In a naked LLM: parametric memory that can invent plausible strings.</div>
+    <div class="stack-level"><span class="lvl-tag">M — Model</span> Next-token prediction. Fluency is not a citation graph.</div>
+    <div class="stack-level"><span class="lvl-tag">O — Objective</span> Be helpful; produce a brief-shaped answer. There is no loss term for "this case exists."</div>
+    <div class="stack-level"><span class="lvl-tag">X — Orchestration</span> Optional RAG. If you skip retrieval, or retrieve and then ignore the hits, you still have a generator. This module is <em>not</em> a RAG architecture lecture — RAG is one control, and Mata did not use it.</div>
+    <div class="stack-level"><span class="lvl-tag">H — Human loop</span> Counsel remain officers of the court. The model is a paralegal with no bar number and no memory of the reporter system.</div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">The Incident — Empirical Grounding</h2>
+
+    <h3 class="sub">Field Visual — Comic Strip</h3>
+    <div class="scene-visual">
+      <div class="comic-strip">
+        <div class="comic-panel" data-panel="1">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="20" y="16" width="80" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M32 32 H88 M32 44 H64" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>The brief</strong>Counsel file an affirmation citing purported federal cases in support of Mata.</div>
+        </div>
+        <div class="comic-panel" data-panel="2">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="40" cy="36" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="68" y="24" width="32" height="24" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>Opposing counsel</strong>Avianca cannot find the cases. The court cannot find the cases.</div>
+        </div>
+        <div class="comic-panel" data-panel="3">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="28" y="18" width="64" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M40 40 L80 32" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>ChatGPT</strong>The citations were generated. Some even came with fake quotations and fake dockets.</div>
+        </div>
+        <div class="comic-panel" data-panel="4">
+          <div class="panel-art">
+            <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="24" y="16" width="72" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+              <text x="38" y="42" font-size="11" fill="currentColor" font-family="monospace">SANCTION</text>
+            </svg>
+          </div>
+          <div class="panel-text"><strong>22 June 2023</strong>Judge Castel sanctions the lawyers. The opinion is the primary source.</div>
+        </div>
+      </div>
+      <p class="visual-caption">COMIC · The Field — Mata v. Avianca, S.D.N.Y. 2023 (original educational strip)</p>
+    </div>
+
+    <h3 class="sub">Real-World Incident Precedent</h3>
+    <p><em>Mata v. Avianca, Inc.</em>, No. 22-cv-1461 (PKC) (S.D.N.Y. June 22, 2023). Lawyers submitted a brief with multiple nonexistent case citations produced by ChatGPT. They had treated fluent legal prose as if it were a retrieval from the federal reporter. Judge Castel's opinion is the RCA document. A related, not primary, case in the same class is <em>Moffatt v. Air Canada</em>, 2024 BCCRT 149, where a customer-facing chatbot asserted a bereavement-fare policy that was not in the tariff — the company called the bot a "separate legal entity" and lost. That is the policy-grounding cousin; Mata remains this module's incident.</p>
+
+    <h3 class="sub">Cinematic vs. Reality Matrix</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Media Depiction (The Script)</th><th>Field Reality (The Incident)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Failure Vector</td>
+          <td>The Machine is depicted as producing true identifiers from real surveillance.</td>
+          <td>ChatGPT produced false identifiers (case names, citations, quotes) with no retrieval step. The show's Machine does not hallucinate; the field model does. Transfer = "fluent ID ≠ source," not "the Machine was ChatGPT."</td>
+        </tr>
+        <tr>
+          <td>Time to Impact</td>
+          <td>A weekly case-of-the-week.</td>
+          <td>A filed affirmation; days to weeks until opposing counsel and the court fail to locate the cases.</td>
+        </tr>
+        <tr>
+          <td>Operator Visibility</td>
+          <td>Finch trusts the number; the audience is told it is real.</td>
+          <td>Counsel asked the model if the cases were real and were told they were. There was no lookup.</td>
+        </tr>
+        <tr>
+          <td>Failsafe Behavior</td>
+          <td>None required — omniscience is the premise.</td>
+          <td>A citator / "does this reporter cite exist?" gate would have stopped the filing. Asking the same model to confirm is not a gate.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Root-Cause Analysis (RCA)</h3>
+    <span class="rca-tag">Classification: Orchestration / Ungrounded generation + Human over-reliance</span>
+    <p>Primary root cause is emitting legal citations from a generative model with no retrieval or citator check, then filing them. A contributing human-factors cause is treating the model's reassurance as verification. This is not a RAG failure (RAG was not used) and not an embeddings lecture.</p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Engineering Runbook &amp; Countermeasures</h2>
+
+    <h3 class="sub">Eval / Telemetry Envelope</h3>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Normal / Baseline</th><th>Trip Threshold</th><th>Condition at Failure</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Citation groundedness</td><td>100% of cited authorities resolve in a citator / corpus</td><td>Any citation that does not resolve</td><td>Multiple nonexistent cases in the Mata affirmation</td></tr>
+        <tr><td>Quote pinpoint</td><td>Quoted text exists at the pinpoint</td><td>Quote not in the opinion</td><td>Fabricated quotations in the ChatGPT output</td></tr>
+        <tr><td>Self-check ≠ verify</td><td>Verification is a different system (Westlaw, CourtListener)</td><td>Same model asked "are you sure?"</td><td>Counsel's documented ChatGPT follow-up</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 class="sub">Mitigation / Recovery Protocol</h3>
+    <ol class="runbook">
+      <li><strong>No citation leaves the building without a resolver.</strong> API to a citator, or it is not a citation.</li>
+      <li><strong>Refuse to invent authorities.</strong> If retrieval returns nothing, the answer is "I do not have a case," not a plausible caption.</li>
+      <li><strong>Do not use the generator as its own verifier.</strong></li>
+      <li><strong>Human filing checklist:</strong> every authority opened. The lawyer's name is still on the brief.</li>
+      <li><strong>Product copy:</strong> this is a drafting aid, not a source. OWASP LLM09 is misinformation; the user-facing lie is calling it research.</li>
+    </ol>
+
+    <h3 class="sub">Standards Reference</h3>
+    <div class="std-refs">
+      <div class="std-ref"><span class="clause">OWASP LLM09 (2025) Misinformation</span> — <span class="desc">the model produces false or misleading content; here, nonexistent case law filed as if real.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MAP 2.2</span> — <span class="desc">knowledge limits and how output may be used and overseen by humans are documented. "May be filed in SDNY" is a use that required those limits in writing.</span></div>
+      <div class="std-ref"><span class="clause">NIST AI RMF MEASURE 2.9</span> — <span class="desc">the model is explained and output is interpreted in context to inform responsible use — including "this string is not a holding."</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  ScriptedAI — cinematic anchors for rigorous AI/ML engineering education.
+</footer>
+
+<script src="../assets/theme.js" defer></script>
+</body>
+</html>
